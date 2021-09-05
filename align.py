@@ -1,6 +1,26 @@
 import cv2
 import numpy as np
 import imutils
+def normalize_dimension(img1, img2):
+	# calculate the difference of the image dimensions
+	(h1, w1) = img1.shape[:2]
+	(h2, w2) = img2.shape[:2]
+
+	if h1 > h2:
+		scale_percent = h2/h1 # percent of original size
+		width = int(img1.shape[1] * scale_percent)
+		height = int(img1.shape[0] * scale_percent)
+		dim = (width, height)
+		# resize image
+		img1 = cv2.resize(img1, dim, interpolation = cv2.INTER_AREA)
+	else:
+		scale_percent = h1/h2
+		width = int(img2.shape[1] * scale_percent)
+		height = int(img2.shape[0] * scale_percent)
+		dim = (width, height)
+		# resize image
+		img2 = cv2.resize(img2, dim, interpolation = cv2.INTER_AREA)
+	return img1, img2
 
 def align_image(img1, img2, maxFeatures=50000, keepPercent=2, debug=False):
 	# Initiate ORB detector
