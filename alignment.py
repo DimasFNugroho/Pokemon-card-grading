@@ -36,6 +36,7 @@ def align_image(img1, img2, maxFeatures=50000, keepPercent=2, debug=False):
   matchedVis = cv2.drawMatches(img1, kp1, img2, kp2, matches, None)
   matchedVis = imutils.resize(matchedVis, width=1000)
 
+	show_image(debug, matchedVis, show_ratio=0.5)
   if debug == True:
     # Show result
     plt.figure(figsize=(15, 15))
@@ -58,85 +59,6 @@ def align_image(img1, img2, maxFeatures=50000, keepPercent=2, debug=False):
   # align image
   aligned = cv2.warpPerspective(img1, H, (w, h))
   return aligned
-
-# 
-# Preprocess the image and apply image segmentation
-# to get the foreground pixels.
-#
-# You may try the badly trimmed input image or the better one
-#
- 
-# Read image 
-img = cv2.imread("cards/card_input/input_back_bad_1.jpeg", cv2.IMREAD_COLOR)
-# img = cv2.imread('Back_input.png', cv2.IMREAD_COLOR)
-# img = cv2.imread('Back_input7.png', cv2.IMREAD_COLOR)
-original = img
- 
-debug = False
- 
-# 1. convert the image to RGB
-img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
- 
-if debug == True:
-  # Show RGB image
-  plt.figure(figsize=(15, 15))
-  plt.imshow(img, cmap='gray')
-  plt.title('RGB')
- 
-# 2.  Apply Median Blur
-median = cv2.medianBlur(img, 13)
-if debug == True:
-  # Show Median Blur result
-  plt.figure(figsize=(15, 15))
-  plt.imshow(median)
-  plt.title('median')
- 
-# 3. get negative image
-img_neg = cv2.bitwise_not(median)
-if debug == True:
-  # Show negative image
-  plt.figure(figsize=(15, 15))
-  plt.imshow(img_neg, cmap='gray')
-  plt.title('negative')
- 
-# 4. Convert the image to gray-scale
-gray = cv2.cvtColor(img_neg, cv2.COLOR_BGR2GRAY)
-if debug == True:
-  # Show grayscale
-  plt.figure(figsize=(15, 15))
-  plt.imshow(gray, cmap='gray')
-  plt.title('grayscale')
- 
-# 5. Apply thresholding
-(thresh, img_thresh) = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY)
-if debug == True:
-  # Show thresholding result
-  plt.figure(figsize=(15, 15))
-  plt.imshow(img_thresh, cmap='gray')
-  plt.title('threshold')
- 
-# 6. Find the contours
-contours, hierarchy = cv2.findContours(img_thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
- 
-# 7. Find the convex hull from contours and draw it on the original image.
-convex_hull = img_thresh
-for i in range(len(contours)):
-    hull = cv2.convexHull(contours[i])
-    cv2.drawContours(convex_hull, [hull], -1, (255, 0, 0), -1)
-if debug == True:
-  # Show convex hull result
-  plt.figure(figsize=(15, 15))
-  plt.imshow(convex_hull, cmap='gray')
-  plt.title('contours')
- 
-# 8. Apply bitwise operation between convex hull result and the input image
-convex_hull = cv2.cvtColor(convex_hull, cv2.COLOR_GRAY2RGB)
-masked = cv2.bitwise_and(img, convex_hull)
-if debug == True:
-  # Show final segmentation result
-  plt.figure(figsize=(15, 15))
-  plt.imshow(masked)
-  plt.title('edges')
 
 # 
 # Warp the forground to the image template
