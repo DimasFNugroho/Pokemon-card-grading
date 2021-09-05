@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import imutils
-import segmentation as seg
+import display_image as dis
 
 def normalize_dimension(img1, img2):
 	# calculate the difference of the image dimensions
@@ -49,7 +49,7 @@ def align_image(img1, img2, maxFeatures=50000, keepPercent=2, debug=False):
 	matchedVis = cv2.drawMatches(img1, kp1, img2, kp2, matches, None)
 	matchedVis = imutils.resize(matchedVis, width=img1.shape[0])
 
-	seg.show_image(debug, matchedVis)
+	dis.show_image(debug, matchedVis)
 
 	ptsA = np.zeros((len(matches), 2), dtype="float")
 	ptsB = np.zeros((len(matches), 2), dtype="float")
