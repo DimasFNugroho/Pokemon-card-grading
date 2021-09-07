@@ -103,9 +103,7 @@ def restore_pixels(debug, fg_img, translated_img):
 		dim = (width, height)
 		# resize image
 		fg_img = cv2.resize(fg_img, dim, interpolation = cv2.INTER_AREA)
-	print("translated")
 	dis.show_image(debug_state=debug, image=translated_img, show_area=1080)
-	print("fg_img")
 	dis.show_image(debug_state=debug, image=fg_img, show_area=1080)
 
 	final_aligned_image = align.align_image(img1=fg_img, img2=translated_img, debug=debug)
@@ -222,7 +220,6 @@ def centering_grading(input_img, full_template, center_template, debug=False):
                 debug=debug,
                 fg_img=fg_img,
                 translated_img=shifted_image)
-	print("restored image")
 	dis.show_image(debug_state=debug,
                 image=restored_image,
                 show_area=1080)
