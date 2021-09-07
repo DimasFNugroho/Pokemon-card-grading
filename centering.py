@@ -108,7 +108,7 @@ def restore_pixels(debug, fg_img, translated_img):
 	print("fg_img")
 	dis.show_image(debug_state=debug, image=fg_img, show_area=1080)
 
-	final_aligned_image = align.align_image(img1=fg_img, img2=translated_img, debug=True)
+	final_aligned_image = align.align_image(img1=fg_img, img2=translated_img, debug=debug)
 	return final_aligned_image
 
 def get_center_template(blank_image):
