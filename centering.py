@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import imutils
-from matplotlib import pyplot as plt
+
 import display_image as dis
 import align
 import segmentation as seg
@@ -152,12 +152,6 @@ def centering_calculation(img1, img2, maxFeatures=1000, keepPercent=1, debug=Fal
 	# Visualize
 	matchedVis = cv2.drawMatches(img1, kp1, img2, kp2, matches, None)
 	matchedVis = imutils.resize(matchedVis, width=1000)
-
-	if debug == True:
-		# Show result
-		plt.figure(figsize=(15, 15))
-		plt.imshow(matchedVis)
-		plt.title('matchedVis')
 
 	ptsA = np.zeros((len(matches), 2), dtype="float")
 	ptsB = np.zeros((len(matches), 2), dtype="float")
