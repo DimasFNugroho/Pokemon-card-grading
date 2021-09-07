@@ -198,6 +198,10 @@ def centering_calculation(img1, img2, maxFeatures=1000, keepPercent=1, debug=Fal
 # Centering grading function
 #
 def centering_grading(input_img, full_template, center_template, debug=False):
+	print("#")
+	print("# Apply Centering Grading")
+	print("#")
+	print(" ")
 	# Apply Segmentation
 	fg_img = seg.white_background_segmentation(
                 input_img,
