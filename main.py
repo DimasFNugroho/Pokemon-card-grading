@@ -4,6 +4,7 @@ import align
 import display_image as dis
 import centering as center
 import surface
+import edges
 
 # Read image
 input_img = cv2.imread("cards/card_input/input_back_bad_1.jpeg", cv2.IMREAD_COLOR)
@@ -18,7 +19,7 @@ centering_grading_img = center.centering_grading(
         full_template=full_template_img,
         center_template=template_img,
         debug=False)
-
+# Show centering grading result
 dis.show_image(debug_state=True, image=centering_grading_img, show_area=1080)
 
 # Apply Surface grading
@@ -28,3 +29,11 @@ surface_grading_img = surface.surface_grading(
         debug=False)
 # Show surface grading result
 dis.show_image(debug_state=True, image=surface_grading_img, show_area=1080)
+
+# Apply edges grading
+edge_grading_img = edges.edges_grading(
+        input_img=input_img,
+        full_template=full_template_img,
+        debug=False)
+# Show surface grading result
+dis.show_image(debug_state=True, image=edge_grading_img, show_area=1080)

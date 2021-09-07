@@ -9,7 +9,7 @@ import surface
 
 def edges_grading(input_img, full_template, debug=False):
 	print("#")
-	print("# Apply Surface Grading")
+	print("# Apply Edge Grading")
 	print("#")
 	print(" ")
 	# Apply segmentation
