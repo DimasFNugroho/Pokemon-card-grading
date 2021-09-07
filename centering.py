@@ -245,3 +245,4 @@ def centering_grading(input_img, full_template, center_template, debug=False):
 	dis.show_image(debug_state=debug,
                 image=image_centering_result,
                 show_area=1080)
+	return image_centering_result
